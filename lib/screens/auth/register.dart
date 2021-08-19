@@ -23,7 +23,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(0, 39, 76, 1),
+        backgroundColor: Color.fromRGBO(255, 203, 5, 1),
         title: Text('Sign Up Page'),
         actions: [
           TextButton.icon(
@@ -75,24 +75,27 @@ class _RegisterState extends State<Register> {
                         await _auth.registWithEmailPassword(email, password);
                     if (result == null) {
                       setState(() {
-                        error = 'please enter a valid email adress or password';
+                        error =
+                            'Please enter a valid email address or password';
                       });
                     }
                   }
                 },
                 child: Text('Sign up'),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.pink,
-                  textStyle: TextStyle(color: Colors.white),
+                  primary: Color.fromRGBO(255, 203, 5, 1),
+                  textStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(
                 height: 12.0,
               ),
-              Text(
-                error,
-                //style....
-              ),
+              error == ''
+                  ? SizedBox()
+                  : Text(
+                      error,
+                      style: TextStyle(color: Colors.red, fontSize: 14.0),
+                    ),
             ],
           ),
         ),

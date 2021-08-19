@@ -12,10 +12,12 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
+  //used to identify the form
+  final _formKey = GlobalKey<FormState>();
   //text field state
   String email = '';
   String password = '';
-
+  String error = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +30,9 @@ class _SignInState extends State<SignIn> {
             onPressed: () {
               widget.toggleView();
             },
+            style: TextButton.styleFrom(
+              primary: Color.fromRGBO(255, 203, 5, 1),
+            ),
             icon: Icon(Icons.person),
             label: Text('Sign up'),
           ),
@@ -36,6 +41,7 @@ class _SignInState extends State<SignIn> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               SizedBox(
@@ -43,8 +49,11 @@ class _SignInState extends State<SignIn> {
               ),
               //user name/email/id
               TextFormField(
+                // enableInteractiveSelection: true,
+                // enabled: true,
+                validator: (val) => val!.isEmpty ? 'Enter an Email' : null,
                 onChanged: (val) {
-                  setState(() => email = val);
+                  setState(() => email = val.trim());
                 },
               ),
               SizedBox(
@@ -52,6 +61,8 @@ class _SignInState extends State<SignIn> {
               ),
               //password
               TextFormField(
+                validator: (val) =>
+                    val!.length < 6 ? 'Need a longer password' : null,
                 obscureText: true,
                 onChanged: (val) {
                   setState(() => password = val);
@@ -61,13 +72,34 @@ class _SignInState extends State<SignIn> {
                 height: 20.0,
               ),
               ElevatedButton(
-                onPressed: () async {},
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    // print('it is valid');
+                    dynamic result =
+                        await _auth.signInWithEmailPassword(email, password);
+                    if (result == null) {
+                      setState(() {
+                        error =
+                            'Please enter a valid email address or password';
+                      });
+                    }
+                  }
+                },
                 child: Text('Sign in'),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.pink,
-                  textStyle: TextStyle(color: Colors.white),
+                  primary: Color.fromRGBO(0, 39, 76, 1),
+                  textStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
+              SizedBox(
+                height: 12.0,
+              ),
+              error == ''
+                  ? SizedBox()
+                  : Text(
+                      error,
+                      style: TextStyle(color: Colors.red, fontSize: 14.0),
+                    ),
             ],
           ),
         ),

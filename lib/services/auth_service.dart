@@ -1,3 +1,4 @@
+import 'package:firbase_test3/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firbase_test3/models/myUser.dart';
 
@@ -10,10 +11,12 @@ class AuthService {
 
   //auth change user stream, change the state if user signs out
   Stream<MyUser> get user {
-    return _auth.authStateChanges()
+    return _auth
+        .authStateChanges()
         .map((User? user) => _userFromFirebaseUser(user!));
     //or .map(_userFromFirebaseUser); it is the same
   }
+
   //sign in with email
   Future signInWithEmailPassword(String email, String password) async {
     try {
@@ -42,10 +45,19 @@ class AuthService {
   //register with email & password
   Future registWithEmailPassword(String email, String password) async {
     try {
+      //create a new user with the email and password
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+
+      //then get the user back
       User? user = result.user;
-      return _userFromFirebaseUser(user!);
+
+      //create a document for the use with unique uid
+      //set a default value
+      await DatabaseService(uid: user!.uid)
+          .updateUserData('sugar', 'name', 100);
+
+      return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
       return null;

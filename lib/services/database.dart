@@ -37,7 +37,7 @@ class DatabaseService {
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
         uid: uid,
-        sugars: snapshot['name'],
+        sugars: snapshot['sugar'],
         strength: snapshot['strength'],
         name: snapshot['name']);
   }
@@ -49,6 +49,6 @@ class DatabaseService {
 
   //get user doc stream
   Stream<UserData> get userData {
-    return brewCollection.doc(uid).snapshots().map((_userDataFromSnapshot);
+    return brewCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
   }
 }

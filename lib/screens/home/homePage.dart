@@ -6,12 +6,12 @@ import 'package:firbase_test3/screens/home/brew_list.dart';
 import 'package:firbase_test3/models/brew.dart';
 import 'package:firbase_test3/shared/constants.dart';
 import 'package:firbase_test3/screens/home/setting_forms.dart';
+
 class HomePage extends StatelessWidget {
   final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
-
     //create a setting list
     void _showSettingPanel() {
       //a built-in model of bottom sheet

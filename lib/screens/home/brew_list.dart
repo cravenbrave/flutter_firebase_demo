@@ -14,20 +14,17 @@ class BrewList extends StatefulWidget {
 class _BrewListState extends State<BrewList> {
   @override
   Widget build(BuildContext context) {
-    final brews = Provider.of<List<Brew>>(context);
-    // print(brews!.docs);
-    // if (brews != null) {
-    //   for (var doc in brews.docs) {
-    //     print(doc.data());
-    //   }
-    // }
 
+    //get the brews info from provider: a list of Brew
+    final brews = Provider.of<List<Brew>>(context);
+
+    //print brews info
     // if (brews != null) {
-    for (var doc in brews) {
-      print(doc.name);
-      print(doc.sugar);
-      print(doc.strength);
-    }
+    // for (var doc in brews) {
+    //   print(doc.name);
+    //   print(doc.sugar);
+    //   print(doc.strength);
+    // }
     // }
     return ListView.builder(
       itemCount: brews.length,

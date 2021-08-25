@@ -19,6 +19,7 @@ const textInputDecSignIn = InputDecoration(
     borderSide: BorderSide(color: UMBlue, width: 1.0),
   ),
 );
+
 const UMBlue = Color.fromRGBO(0, 39, 76, 1);
 
 const UMYellow = Color.fromRGBO(255, 203, 5, 1);

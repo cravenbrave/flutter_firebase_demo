@@ -1,21 +1,20 @@
 // import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firbase_test3/models/brew.dart';
-import 'package:flutter/material.dart';
+import 'package:firbase_test3/models/myUser.dart';
 
 class DatabaseService {
   final String uid;
   DatabaseService({required this.uid});
 
-  //collection reference/instance
+  //create a collection reference/instance
   final CollectionReference brewCollection =
       FirebaseFirestore.instance.collection('brews');
 
   Future<void> updateUserData(String sugar, String name, int strength) async {
     //firebase creates a document with a unique uid for you, and setup data
     //in that document
-    //set a map
+    //set a map with pass in value
     return await brewCollection.doc(uid).set({
       'sugar': sugar,
       'name': name,
@@ -34,8 +33,22 @@ class DatabaseService {
     }).toList();
   }
 
+  //user data from snapshot
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+        uid: uid,
+        sugars: snapshot['name'],
+        strength: snapshot['strength'],
+        name: snapshot['name']);
+  }
+
   //get brews collection streams
   Stream<List<Brew>> get brews {
     return brewCollection.snapshots().map(_brewListFromSnapshot);
+  }
+
+  //get user doc stream
+  Stream<UserData> get userData {
+    return brewCollection.doc(uid).snapshots().map((_userDataFromSnapshot);
   }
 }

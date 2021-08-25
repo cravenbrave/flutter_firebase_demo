@@ -55,7 +55,7 @@ class AuthService {
       //create a document for the use with unique uid
       //set a default value
       await DatabaseService(uid: user!.uid)
-          .updateUserData('sugar', 'name', 100);
+          .updateUserData('sugar', 'New member', 100);
 
       return _userFromFirebaseUser(user);
     } catch (e) {

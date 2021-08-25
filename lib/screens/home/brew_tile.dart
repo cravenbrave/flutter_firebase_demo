@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firbase_test3/models/brew.dart';
 
+//show each brew tile based on the pass in brew info
 class BrewTile extends StatelessWidget {
   final Brew brew;
   BrewTile({required this.brew});

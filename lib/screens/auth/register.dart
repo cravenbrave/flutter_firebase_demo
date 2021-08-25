@@ -28,7 +28,7 @@ class _RegisterState extends State<Register> {
         : Scaffold(
             backgroundColor: Colors.grey[100],
             appBar: AppBar(
-              backgroundColor: Color.fromRGBO(255, 203, 5, 1),
+              backgroundColor: UMYellow,
               title: Text('Sign Up Page'),
               actions: [
                 TextButton.icon(
@@ -43,6 +43,7 @@ class _RegisterState extends State<Register> {
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
               child: Form(
+                //used to identify the form
                 key: _formKey,
                 child: Column(
                   children: [
@@ -93,7 +94,7 @@ class _RegisterState extends State<Register> {
                       },
                       child: Text('Sign up'),
                       style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(255, 203, 5, 1),
+                        primary: UMYellow,
                         textStyle: TextStyle(
                             color: Colors.white,
                             fontSize: 20,

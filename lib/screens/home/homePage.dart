@@ -27,6 +27,7 @@ class HomePage extends StatelessWidget {
 
     //a stream provider used to get real time brew values
     return StreamProvider<List<Brew>>.value(
+      // catchError: (_, __) => null,
       //we dont need a specific uid, so just leave it blank
       value: DatabaseService(uid: '').brews,
       initialData: [],
@@ -56,7 +57,15 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-        body: BrewList(),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/coffee_bg.png'),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: BrewList(),
+        ),
       ),
     );
   }

@@ -55,7 +55,7 @@ class _SettingFormState extends State<SettingForm> {
                     decoration: textInputDec.copyWith(hintText: 'Sugar(s)'),
                     //don't let the list to high
                     isDense: true,
-                    value: _currentSugar ?? userData.sugars,
+                    // value: _currentSugar ?? userData.sugars,
                     onChanged: (val) {
                       setState(() => _currentSugar = val as String);
                     },
